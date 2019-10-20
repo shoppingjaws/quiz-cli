@@ -10,7 +10,10 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Content",
+  components: {}
+};
 </script>
 
 <style>

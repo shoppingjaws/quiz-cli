@@ -1,6 +1,5 @@
 <template>
   <center>
-    <Question />
     <br />
     <div class="text-center">
       <v-content>
@@ -24,6 +23,10 @@
 </template>
 
 <script>
+export default {
+  name: "TwoChoice",
+  components: {}
+};
 </script>
 
 <style>

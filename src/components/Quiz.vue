@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Question />
-    <Answer />
+    <Content />
+    <answer />
   </div>
 </template>
 
 <script>
-import Question from "./Question";
+import Content from "./Content";
 import Answer from "./Answer.vue";
 export default {
   name: "Quiz",
   components: {
-    Question,
+    Content,
     Answer
   },
   data: () => ({})

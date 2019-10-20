@@ -15,7 +15,7 @@
         <br />
         <br />
         <div>
-          <Quiz />
+          <quiz />
         </div>
       </div>
     </div>

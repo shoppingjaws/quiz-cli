@@ -1,0 +1,16 @@
+{
+	"questions": {
+		"current": {
+			"id": 1,
+			"title": "あなたは何歳",
+			"questionType": 2
+		}
+	},
+	"votes": {
+		"0Yj8Kns67KoM": {
+			"answer": 1,
+			"id": 1,
+			"userId": "TAKEO KIKUCHI"
+		}
+	}
+}

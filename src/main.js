@@ -6,8 +6,8 @@ import firebase from "firebase";
 
 Vue.config.productionTip = false;
 var config = require("../private/firebase");
-console.log(config.firebaseAPIKey);
-firebase.initializeApp(config.firebaseAPIKey);
+console.debug(config.firebaseKey);
+firebase.initializeApp(config.firebaseKey);
 
 new Vue({
   router,
