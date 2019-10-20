@@ -1,13 +1,10 @@
 <template>
   <div>
-    <four-choice />
-    <two-choice />
+    <router-view />
   </div>
 </template>
 
 <script>
-import FourChoice from "./FourChoice.vue";
-import TwoChoice from "./TwoChoice";
 import firebase from "firebase";
 //import date from "date-utils";
 export default {
@@ -15,21 +12,25 @@ export default {
   data: () => {
     return {
       status: {
-        currentQuestionId: 0
+        currentQuestionId: 0,
+        databaseRef: null
       }
     };
   },
-  components: {
-    FourChoice,
-    TwoChoice
-  },
+
   methods: {},
   created: function() {
     console.debug("Answer.created");
-    const ref = firebase.database().ref("questions/current");
-    ref.on("value", function(snapshot) {
-	  console.debug("question is changed", snapshot.val());
-	  
+    this.databaseRef = firebase.database().ref("questions/current");
+    this.databaseRef.on("value", function(snapshot) {
+      console.debug("question is changed", snapshot.val());
+      if (snapshot.child("questionType").val() == 2) {
+        console.debug("current-DB is changed");
+        //TODO beforeRouteUpdateかもしれん
+        this.$router.replace({ name: "TwoChoice" });
+      } else if (snapshot.child("questionType").val() == 4) {
+        this.$router.replace({ name: "FourChoice" });
+      }
     });
   }
 };

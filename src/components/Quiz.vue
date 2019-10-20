@@ -1,7 +1,7 @@
 <template>
   <div>
     <Content />
-    <answer />
+    <Answer />
   </div>
 </template>
 
@@ -14,7 +14,13 @@ export default {
     Content,
     Answer
   },
-  data: () => ({})
+  data: () => {
+    return {
+      databaseRef: null
+    };
+  },
+  methods: {},
+  created: function() {}
 };
 </script>
 

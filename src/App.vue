@@ -15,7 +15,7 @@
         <br />
         <br />
         <div>
-          <quiz />
+          <Quiz />
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@ export default {
 <style scoped>
 .bg_main {
   width: 100%;
-  height: 315px;
+  height: 3150px;
   background-color: #fc693b;
   background-image: repeating-linear-gradient(
     -45deg,
