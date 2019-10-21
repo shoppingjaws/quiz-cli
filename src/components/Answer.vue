@@ -6,31 +6,31 @@
 
 <script>
 import firebase from "firebase";
-//import date from "date-utils";
 export default {
   name: "Answer",
   data: () => {
     return {
       status: {
-        currentQuestionId: 0,
-        databaseRef: null
+        currentQuestionId: 0
       }
     };
   },
 
   methods: {},
   created: function() {
+    var that = this;
+    var dbRef = firebase.database().ref("questions/current");
     console.debug("Answer.created");
-    this.databaseRef = firebase.database().ref("questions/current");
-    this.databaseRef.on("value", function(snapshot) {
+    dbRef.on("value", function(snapshot) {
       console.debug("question is changed", snapshot.val());
-      if (snapshot.child("questionType").val() == 2) {
-        console.debug("current-DB is changed");
-        //TODO beforeRouteUpdateかもしれん
-        this.$router.replace({ name: "TwoChoice" });
-      } else if (snapshot.child("questionType").val() == 4) {
-        this.$router.replace({ name: "FourChoice" });
-      }
+      dbRef.once("value").then(function(snapshot) {
+        console.debug("sss");
+        if (snapshot.child("questionType").val() == 2) {
+          that.$router.replace({ name: "TwoChoice" }, () => {}, () => {});
+        } else if (snapshot.child("questionType").val() == 4) {
+          that.$router.replace({ name: "FourChoice" }, () => {}, () => {});
+        }
+      });
     });
   }
 };
