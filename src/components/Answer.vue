@@ -1,21 +1,25 @@
 <template>
   <div>
-    <router-view />
+    <component :is="currentQuestion"></component>
   </div>
 </template>
 
 <script>
+import TwoChoice from "./TwoChoice";
+import FourChoice from "./FourChoice";
 import firebase from "firebase";
 export default {
   name: "Answer",
   data: () => {
     return {
-      status: {
-        currentQuestionId: 0
-      }
+      currentQuestionId: 0,
+      currentQuestion: ""
     };
   },
-
+  components: {
+    TwoChoice,
+    FourChoice
+  },
   methods: {},
   created: function() {
     var that = this;
@@ -25,9 +29,9 @@ export default {
       console.debug("question is changed", snapshot.val());
       dbRef.once("value").then(function(snapshot) {
         if (snapshot.child("questionType").val() == 2) {
-          that.$router.replace({ name: "TwoChoice" }, () => {}, () => {});
+          that.currentQuestion = "TwoChoice";
         } else if (snapshot.child("questionType").val() == 4) {
-          that.$router.replace({ name: "FourChoice" }, () => {}, () => {});
+          that.currentQuestion = "FourChoice";
         }
       });
     });

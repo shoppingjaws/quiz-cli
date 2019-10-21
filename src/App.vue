@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div class="bg_main">
+    <div class="bg">
       <div>
         <v-toolbar>
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
@@ -15,7 +15,7 @@
         <br />
         <br />
         <div>
-          <Quiz />
+          <Quiz></Quiz>
         </div>
       </div>
     </div>
@@ -24,16 +24,20 @@
 
 <script>
 import Quiz from "@/components/Quiz";
+// import Home from "./components/Home";
 export default {
   name: "App",
   components: {
+    // Home
     Quiz
   },
   data: () => ({})
 };
 </script>
 <style scoped>
-.bg_main {
+/* TODO: Upgrade CSS https://deshinon.com/2019/03/06/background-oshare-kopipe/ */
+
+.bg {
   width: 100%;
   height: 3150px;
   background-color: #fc693b;

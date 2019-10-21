@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
+//import router from "./router";
 import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
 
@@ -10,7 +10,7 @@ console.debug(config.firebaseKey);
 firebase.initializeApp(config.firebaseKey);
 
 new Vue({
-  router,
+  //router,
   vuetify,
   render: h => h(App)
 }).$mount("#app");
