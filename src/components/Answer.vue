@@ -24,7 +24,6 @@ export default {
     dbRef.on("value", function(snapshot) {
       console.debug("question is changed", snapshot.val());
       dbRef.once("value").then(function(snapshot) {
-        console.debug("sss");
         if (snapshot.child("questionType").val() == 2) {
           that.$router.replace({ name: "TwoChoice" }, () => {}, () => {});
         } else if (snapshot.child("questionType").val() == 4) {
