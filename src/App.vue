@@ -1,37 +1,28 @@
 <template>
   <v-app>
     <div class="bg">
-      <div>
-        <v-toolbar>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-          <v-toolbar-title>
-            <b>チキチキ</b>
-            忘年会
-            <b>大</b>
-            クイズ大会
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <br />
-        <br />
-        <div>
-          <Quiz></Quiz>
-        </div>
-      </div>
+      <Quiz></Quiz>
     </div>
   </v-app>
 </template>
 
 <script>
 import Quiz from "@/components/Quiz";
-// import Home from "./components/Home";
 export default {
   name: "App",
   components: {
     // Home
     Quiz
   },
-  data: () => ({})
+  data: () => {
+    return {
+      userId: "hoge"
+    };
+  },
+  methods: {},
+  created: function() {
+    console.debug("accessed url is", location.href);
+  }
 };
 </script>
 <style scoped>
