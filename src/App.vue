@@ -1,9 +1,11 @@
 <template>
+<body>
   <v-app>
     <div class="bg">
       <Quiz></Quiz>
     </div>
   </v-app>
+</body>
 </template>
 
 <script>
@@ -25,12 +27,23 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style >
 /* TODO: Upgrade CSS https://deshinon.com/2019/03/06/background-oshare-kopipe/ */
+
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
 
 .bg {
   width: 100%;
-  height: 3150px;
+  height: 100vh;
   background-color: #fc693b;
   background-image: repeating-linear-gradient(
     -45deg,
