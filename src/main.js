@@ -2,13 +2,18 @@ import Vue from "vue";
 import App from "./App.vue";
 import "es6-promise/auto";
 import vmodal from "vue-js-modal";
-import vscrollLock from "v-scroll-lock";
 import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
+import BootstrapVue from "bootstrap-vue";
+import VueMeta from "vue-meta";
 Vue.config.productionTip = false;
 Vue.use(vuetify);
 Vue.use(vmodal);
-Vue.use(vscrollLock);
+Vue.use(BootstrapVue);
+Vue.use(VueMeta, {
+  // optional pluginOptions
+  refreshOnceOnNavigation: true
+});
 
 var config = require("../private/firebase");
 console.debug(config.firebaseKey);

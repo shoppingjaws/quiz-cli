@@ -10,7 +10,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text icon color="red">
-          <v-icon large @click="openInfoPage">mdi-information-outline</v-icon>
+          <v-icon large @click="showModalInfo = true">mdi-information-outline</v-icon>
         </v-btn>
       </v-toolbar>
       <br />
@@ -18,9 +18,12 @@
       <div>
         <Content />
         <Answer />
-        <modal name="infoModal">
-          <Info />
-        </modal>
+        <Modal v-if="showModalInfo" @close="showModalInfo = false">
+          <h1
+            slot="body"
+            word-break="none"
+          >kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</h1>
+        </Modal>
       </div>
     </div>
   </div>
@@ -29,30 +32,20 @@
 <script>
 import Content from "./Content";
 import Answer from "./Answer.vue";
-import Info from "./Info.vue";
+import Modal from "./Modal.vue";
 export default {
   name: "Quiz",
   components: {
     Content,
     Answer,
-    Info
+    Modal
   },
   data: () => {
     return {
-      databaseRef: null,
-      isInfoPageOpened: false
+      showModalInfo: false
     };
   },
-  methods: {
-    openInfoPage() {
-      this.$modal.show("infoModal");
-      console.debug("info page opened");
-    },
-    closeInfoPage() {
-      this.$modal.hide("infoModal");
-      console.debug("info page closed");
-    }
-  },
+  methods: {},
   created: function() {}
 };
 </script>

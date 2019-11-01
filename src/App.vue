@@ -12,8 +12,12 @@
 import Quiz from "@/components/Quiz";
 export default {
   name: "App",
+  metaInfo: {
+    title: "quiz-cli",
+    name: "viewport",
+    content: "width=device-width,initial-scale=1"
+  },
   components: {
-    // Home
     Quiz
   },
   data: () => {
