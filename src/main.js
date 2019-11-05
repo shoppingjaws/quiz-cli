@@ -16,7 +16,6 @@ Vue.use(VueMeta, {
 });
 
 var config = require("../private/firebase");
-console.debug(config.firebaseKey);
 firebase.initializeApp(config.firebaseKey);
 
 new Vue({

@@ -15,7 +15,7 @@ export default {
   name: "Content",
   data: () => {
     return {
-      questionTitle: "hello",
+      questionTitle: "",
       questionId: ""
     };
   },
