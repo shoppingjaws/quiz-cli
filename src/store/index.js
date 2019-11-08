@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   strict: true,
   state: {
-    mainTitle: "",
+    title: "",
     quizNum: 0,
     quizTitle: "",
     quizChoice: ["0", "1", "2", "3"],
@@ -17,6 +17,7 @@ const store = new Vuex.Store({
   // state の更新
   mutations: {
     setState: function(state, value) {
+      console.debug("setState");
       //URLの引数からuserIDを抜き出して､DBを参照
       const url = new URL(location.href);
 
@@ -31,12 +32,10 @@ const store = new Vuex.Store({
       state.quizChoice[1] = value["quizChoice2"];
       state.quizChoice[2] = value["quizChoice3"];
       state.quizChoice[3] = value["quizChoice4"];
-
-      console.log("state is changed", state);
+      state.title = value["title"];
     },
     setUserExist: function(state, value) {
       state.userIdExist = value;
-      console.log("userIdExist is changed", state.userIdExist);
     }
   },
   // state から別の値を計算
@@ -44,6 +43,7 @@ const store = new Vuex.Store({
   //外部APIや非同期処理
   actions: {
     updateState: function(ctx) {
+      console.debug("updateState");
       var updatedState = new Array();
       firebase
         .database()

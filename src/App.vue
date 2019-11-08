@@ -1,16 +1,14 @@
 <template>
 <body>
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" />
   <v-app>
     <v-toolbar>
       <v-toolbar-title>
-        <b>チキチキ</b>
-        忘年会
-        <b>大</b>
-        クイズ大会
+        <b>{{this.$store.state.title}}</b>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text icon color="red">
-        <v-icon large @click.stop="dialog = true">mdi-info</v-icon>
+      <v-btn text icon color="gray">
+        <i class="fas fa-info-circle fa-2x" @click.stop="dialog = true"></i>
       </v-btn>
     </v-toolbar>
     <div class="bg">

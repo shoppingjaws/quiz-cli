@@ -34,6 +34,10 @@
         >{{ this.$store.state.quizChoice[3] }}</v-btn>
       </div>
     </v-col>
+    <v-snackbar v-model="snackbar" :multi-line="true">
+      {{ text }}
+      <v-btn color="red" :timeout="10" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </center>
 </template>
 
@@ -42,7 +46,10 @@ import firebase from "firebase";
 export default {
   name: "FourChoice",
   data: () => {
-    return {};
+    return {
+      snackbar: false,
+      text: "投票が完了しました"
+    };
   },
   created: function() {},
   methods: {
@@ -53,6 +60,7 @@ export default {
           "vote/" + this.$store.state.userID + "/" + this.$store.state.quizID
         )
         .set(value);
+      this.snackbar = true;
     }
   }
 };

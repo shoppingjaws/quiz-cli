@@ -19,12 +19,22 @@
         </v-container>
       </v-content>
     </div>
+    <v-snackbar v-model="snackbar" :multi-line="true">
+      {{ text }}
+      <v-btn color="red" :timeout="10" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </center>
 </template>
 <script>
 import firebase from "firebase";
 export default {
   name: "TwoChoice",
+  data: () => {
+    return {
+      snackbar: false,
+      text: "投票が完了しました"
+    };
+  },
   components: {},
   methods: {
     vote: function(value) {
@@ -34,6 +44,7 @@ export default {
           "vote/" + this.$store.state.userID + "/" + this.$store.state.quizID
         )
         .set(value);
+      this.snackbar = true;
     }
   }
 };
