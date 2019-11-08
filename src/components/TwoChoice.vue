@@ -6,12 +6,12 @@
         <v-container>
           <v-layout>
             <v-flex>
-              <v-btn class="pa-2" fab dark large color="blue">
+              <v-btn class="pa-2" fab dark large color="blue" @click="vote(true)">
                 <v-icon dark>mdi-thumb-up</v-icon>
               </v-btn>
             </v-flex>
             <v-flex>
-              <v-btn class="pa-2" fab dark large color="pink">
+              <v-btn class="pa-2" fab dark large color="pink" @click="vote(false)">
                 <v-icon dark>mdi-thumb-down</v-icon>
               </v-btn>
             </v-flex>
@@ -21,11 +21,21 @@
     </div>
   </center>
 </template>
-
 <script>
+import firebase from "firebase";
 export default {
   name: "TwoChoice",
-  components: {}
+  components: {},
+  methods: {
+    vote: function(value) {
+      firebase
+        .database()
+        .ref(
+          "vote/" + this.$store.state.userID + "/" + this.$store.state.quizID
+        )
+        .set(value);
+    }
+  }
 };
 </script>
 

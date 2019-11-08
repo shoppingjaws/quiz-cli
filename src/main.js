@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
 import BootstrapVue from "bootstrap-vue";
 import VueMeta from "vue-meta";
+import store from "./store/index.js";
 Vue.config.productionTip = false;
 Vue.use(vuetify);
 Vue.use(vmodal);
@@ -19,7 +20,7 @@ var config = require("../private/firebase");
 firebase.initializeApp(config.firebaseKey);
 
 new Vue({
-  //router,
+  store,
   vuetify,
   render: h => h(App)
 }).$mount("#app");

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="headline">Invalid DB record</v-card-title>
+    <v-card-title class="headline">Status Not Found</v-card-title>
     <v-card-text>DBが不正です｡しばらくおまちください｡</v-card-text>
   </v-card>
 </template>

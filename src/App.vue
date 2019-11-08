@@ -10,22 +10,22 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text icon color="red">
-        <v-icon large @click.stop="dialog = true">mdi-information-outline</v-icon>
+        <v-icon large @click.stop="dialog = true">mdi-info</v-icon>
       </v-btn>
     </v-toolbar>
     <div class="bg">
-      <div v-if="isUserExist">
-        <div v-if="status === 'quiz'">
+      <div v-if="this.$store.state.userIdExist === true">
+        <div v-if="this.$store.state.status === 'quiz'">
           <Quiz />
         </div>
-        <div v-else-if="status === 'standby'">
+        <div v-else-if="this.$store.state.status === 'standby'">
           <StandBy />
         </div>
         <div v-else>
           <StatusNotFound />
         </div>
       </div>
-      <div v-else-if="isUserExist == false">
+      <div v-else-if="this.$store.state.userIdExist === false">
         <UserNotFound />
       </div>
       <v-dialog v-model="dialog" max-width="290">
@@ -44,7 +44,6 @@ import Quiz from "@/components/Quiz";
 import UserNotFound from "@/components/UserNotFound";
 import StatusNotFound from "@/components/StatusNotFound";
 import StandBy from "@/components/StandBy";
-import firebase from "firebase";
 export default {
   name: "App",
   metaInfo: {
@@ -60,39 +59,18 @@ export default {
   },
   data: () => {
     return {
-      userID: "",
-      dialog: false,
-      isUserExist: true,
-      status: "standby"
+      dialog: false
     };
   },
+  computed: {},
   created: function() {
-    var that = this;
-    //URLの引数からuserIDを抜き出して､DBを参照
-    const url = new URL(location.href);
-    that.userID = url.searchParams.get("userID");
-    firebase
-      .database()
-      .ref("users/" + that.userID)
-      .once("value", function(obj) {
-        if (obj.val() == null) {
-          that.isUserExist = false;
-        } else {
-          that.isUserExist = true;
-        }
-      });
-
-    firebase
-      .database()
-      .ref("questions/current/status")
-      .on("value", function(obj) {
-        that.status = obj.val();
-      });
+    this.$store.dispatch("updateState");
+    this.$store.dispatch("checkUserID");
   }
 };
 </script>
 
-<style >
+<style>
 html {
   height: 100vh;
   overflow: hidden;
