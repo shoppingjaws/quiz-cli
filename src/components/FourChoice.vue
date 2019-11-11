@@ -7,7 +7,7 @@
           color="error"
           width="150pt"
           @click="vote(1)"
-        >{{ this.$store.state.quizChoice[0] }}</v-btn>
+        >{{ this.$store.state.quizValue['quizChoice1'] }}</v-btn>
       </div>
       <div class="my-2">
         <v-btn
@@ -15,7 +15,7 @@
           color="primary"
           width="150pt"
           @click="vote(2)"
-        >{{ this.$store.state.quizChoice[1] }}</v-btn>
+        >{{ this.$store.state.quizValue['quizChoice2'] }}</v-btn>
       </div>
       <div class="my-2">
         <v-btn
@@ -23,7 +23,7 @@
           color="success"
           width="150pt"
           @click="vote(3)"
-        >{{ this.$store.state.quizChoice[2] }}</v-btn>
+        >{{ this.$store.state.quizValue['quizChoice3'] }}</v-btn>
       </div>
       <div class="my-2">
         <v-btn
@@ -31,7 +31,7 @@
           color="warning"
           width="150pt"
           @click="vote(4)"
-        >{{ this.$store.state.quizChoice[3] }}</v-btn>
+        >{{ this.$store.state.quizValue['quizChoice4'] }}</v-btn>
       </div>
     </v-col>
     <v-snackbar v-model="snackbar" :multi-line="true">
@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import firebase from "firebase";
 export default {
   name: "FourChoice",
   data: () => {
@@ -52,17 +51,7 @@ export default {
     };
   },
   created: function() {},
-  methods: {
-    vote: function(value) {
-      firebase
-        .database()
-        .ref(
-          "vote/" + this.$store.state.userID + "/" + this.$store.state.quizID
-        )
-        .set(value);
-      this.snackbar = true;
-    }
-  }
+  methods: {}
 };
 </script>
 

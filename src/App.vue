@@ -4,7 +4,7 @@
   <v-app>
     <v-toolbar>
       <v-toolbar-title>
-        <b>{{this.$store.state.title}}</b>
+        <b>{{this.$store.state.quizValue['title']}}</b>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text icon color="gray">
@@ -12,11 +12,11 @@
       </v-btn>
     </v-toolbar>
     <div class="bg">
-      <div v-if="this.$store.state.userIdExist === true">
-        <div v-if="this.$store.state.status === 'quiz'">
+      <div v-if="true">
+        <div v-if="true">
           <Quiz />
         </div>
-        <div v-else-if="this.$store.state.status === 'standby'">
+        <div v-else-if="false">
           <StandBy />
         </div>
         <div v-else>
@@ -26,11 +26,8 @@
       <div v-else-if="this.$store.state.userIdExist === false">
         <UserNotFound />
       </div>
-      <v-dialog v-model="dialog" max-width="290">
-        <v-card>
-          <v-card-title class="headline">新人紹介</v-card-title>
-          <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-        </v-card>
+      <v-dialog v-model="dialog" max-width="90%">
+        <Info />
       </v-dialog>
     </div>
   </v-app>
@@ -42,6 +39,8 @@ import Quiz from "@/components/Quiz";
 import UserNotFound from "@/components/UserNotFound";
 import StatusNotFound from "@/components/StatusNotFound";
 import StandBy from "@/components/StandBy";
+import Info from "../private/Info";
+//import firebase from "firebase";
 export default {
   name: "App",
   metaInfo: {
@@ -53,7 +52,8 @@ export default {
     Quiz,
     UserNotFound,
     StatusNotFound,
-    StandBy
+    StandBy,
+    Info
   },
   data: () => {
     return {
@@ -62,8 +62,7 @@ export default {
   },
   computed: {},
   created: function() {
-    this.$store.dispatch("updateState");
-    this.$store.dispatch("checkUserID");
+    this.$store.dispatch("asyncUpdateState");
   }
 };
 </script>

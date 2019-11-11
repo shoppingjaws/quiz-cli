@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-card class="mx-auto" max-width="344" outlined>
+    <v-card class="mx-auto" max-width="90%" outlined>
       <v-card-text>
-        <v-card-title>Q{{this.$store.state.quizID}}</v-card-title>
-        <p class="display-1 text--primary">{{ this.$store.state.quizTitle }}</p>
+        <v-card-title>Q{{this.$store.state.quizValue['quizNum']}}</v-card-title>
+        <p class="display-1 text--primary">{{ this.$store.state.quizValue['quizTitle'] }}</p>
       </v-card-text>
     </v-card>
   </div>
@@ -13,10 +13,7 @@
 export default {
   name: "Content",
   data: () => {
-    return {
-      questionTitle: "",
-      questionId: ""
-    };
+    return {};
   },
   components: {},
   created: function() {}

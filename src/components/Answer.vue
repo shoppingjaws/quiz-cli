@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="this.$store.state.quizMode === 'TwoChoice'">
+    <div v-if="this.$store.state.quizValue['quizMode']==='TwoChoice'">
       <TwoChoice />
     </div>
-    <div v-else-if="this.$store.state.quizMode === 'FourChoice'">
+    <div v-else-if="this.$store.state.quizValue['quizMode']==='FourChoice'">
       <FourChoice />
     </div>
   </div>
@@ -15,10 +15,7 @@ import FourChoice from "./FourChoice";
 export default {
   name: "Answer",
   data: () => {
-    return {
-      currentQuestionId: 0,
-      currentQuestion: ""
-    };
+    return {};
   },
   components: {
     TwoChoice,
