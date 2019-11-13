@@ -4,7 +4,11 @@
   <v-app>
     <v-toolbar>
       <v-toolbar-title>
-        <b>{{this.$store.state.quizValue['title']}}</b>
+        <b>
+          {{this.$store.state.quizValue['title']}}
+          <br />
+          <small>あなたの名前は{{this.$store.state.userID}}です</small>
+        </b>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text icon color="gray">
@@ -12,19 +16,17 @@
       </v-btn>
     </v-toolbar>
     <div class="bg">
-      <div v-if="true">
-        <div v-if="true">
-          <Quiz />
-        </div>
-        <div v-else-if="false">
-          <StandBy />
-        </div>
-        <div v-else>
-          <StatusNotFound />
-        </div>
-      </div>
-      <div v-else-if="this.$store.state.userIdExist === false">
+      <div v-if="this.$store.state.userID === null || this.$store.state.userID ===undefined">
         <UserNotFound />
+      </div>
+      <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
+        <Quiz />
+      </div>
+      <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'">
+        <StandBy />
+      </div>
+      <div v-else>
+        <StatusNotFound />
       </div>
       <v-dialog v-model="dialog" max-width="90%">
         <Info />
@@ -36,11 +38,10 @@
 
 <script>
 import Quiz from "@/components/Quiz";
-import UserNotFound from "@/components/UserNotFound";
 import StatusNotFound from "@/components/StatusNotFound";
 import StandBy from "@/components/StandBy";
 import Info from "../private/Info";
-//import firebase from "firebase";
+import UserNotFound from "@/components/UserNotFound";
 export default {
   name: "App",
   metaInfo: {
@@ -50,10 +51,10 @@ export default {
   },
   components: {
     Quiz,
-    UserNotFound,
+    Info,
     StatusNotFound,
     StandBy,
-    Info
+    UserNotFound
   },
   data: () => {
     return {
@@ -62,7 +63,8 @@ export default {
   },
   computed: {},
   created: function() {
-    this.$store.dispatch("asyncUpdateState");
+    this.$store.dispatch("initUserID");
+    this.$store.dispatch("updateState");
   }
 };
 </script>

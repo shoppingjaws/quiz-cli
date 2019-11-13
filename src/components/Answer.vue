@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="this.$store.state.quizValue['quizMode']==='TwoChoice'">
+    <div v-if="this.$store.state.quizValue['quizMode'] === 'TwoChoice'">
       <TwoChoice />
     </div>
-    <div v-else-if="this.$store.state.quizValue['quizMode']==='FourChoice'">
+    <div v-else-if="this.$store.state.quizValue['quizMode'] === 'FourChoice'">
       <FourChoice />
     </div>
   </div>

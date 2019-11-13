@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "FourChoice",
   data: () => {
@@ -51,9 +52,18 @@ export default {
     };
   },
   created: function() {},
-  methods: {}
+  methods: {
+    vote: function(ans) {
+      var update = {};
+      update[this.$store.state.quizValue["quizID"]] = ans;
+      firebase
+        .database()
+        .ref("vote/" + this.$store.state.userID)
+        .update(update);
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 </style>
