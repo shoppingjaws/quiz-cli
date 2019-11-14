@@ -19,30 +19,29 @@
         </v-btn>
       </v-toolbar>
       <div class="bg">
-        <div id="nico">
-          <div
-            v-if="
-              this.$store.state.userID === null ||
-                this.$store.state.userID === undefined
-            "
-          >
-            <UserNotFound />
-          </div>
-          <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
-            <Quiz />
-          </div>
-          <div
-            v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'"
-          >
-            <StandBy />
-          </div>
-          <div v-else>
-            <StatusNotFound />
-          </div>
-          <v-dialog v-model="dialog" max-width="90%">
-            <Info />
-          </v-dialog>
+        <div id="nicoview"></div>
+        <div
+          v-if="
+            this.$store.state.userID === null ||
+              this.$store.state.userID === undefined
+          "
+        >
+          <UserNotFound />
         </div>
+        <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
+          <Quiz />
+        </div>
+        <div
+          v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'"
+        >
+          <StandBy />
+        </div>
+        <div v-else>
+          <StatusNotFound />
+        </div>
+        <v-dialog v-model="dialog" max-width="90%">
+          <Info />
+        </v-dialog>
       </div>
     </v-app>
   </body>
@@ -78,15 +77,28 @@ export default {
     this.$store.dispatch("initUserID");
     this.$store.dispatch("updateState");
     //created のレンダリングが終わったあとに実行する必要があるので
-    setTimeout(this.nico, 1000);
+  },
+  mounted() {
+    this.nico();
   },
   methods: {
+    //これベース
     nico: function() {
-      var comment = document.createTextNode("hello");
-      var nico = document.getElementById("nico");
-      var h1Node = document.createElement("h1");
-      h1Node.appendChild(comment);
-      nico.appendChild(h1Node);
+      var comment1 = document.createTextNode("hello1");
+      var comment2 = document.createTextNode("hello2");
+      var nicoview = document.getElementById("nicoview");
+      var nhNode1 = document.createElement("div");
+      var nhNode2 = document.createElement("div");
+      nhNode1.setAttribute("id", "nico"); //add <div id="nico">
+      nhNode2.setAttribute("id", "nico"); //add <div id="nico">
+      nhNode1.appendChild(comment1); //<div id=nicoview><nico>hello<nico/></nicoview>
+      nhNode2.appendChild(comment2); //<div id=nicoview><nico>hello<nico/></nicoview>
+      nicoview.appendChild(nhNode1);
+      setTimeout(function() {
+        nicoview.appendChild(nhNode2);
+      }, 1000);
+
+      console.log(nicoview);
     }
   }
 };
@@ -115,5 +127,28 @@ body {
     transparent 0,
     transparent 15px
   );
+}
+#nico {
+  font-size: 100px;
+  position: absolute;
+  mix-blend-mode: normal;
+  z-index: 99;
+  margin: 0;
+  padding-left: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  animation-name: nico;
+  animation-timing-function: linear;
+  animation-duration: 10s;
+  animation-iteration-count: １;
+}
+@keyframes nico {
+  from {
+    transform: translate(0%);
+  }
+  99%,
+  to {
+    transform: translate(-100%);
+  }
 }
 </style>
