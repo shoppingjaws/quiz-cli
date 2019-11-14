@@ -19,28 +19,30 @@
         </v-btn>
       </v-toolbar>
       <div class="bg">
-        <div
-          v-if="
-            this.$store.state.userID === null ||
-              this.$store.state.userID === undefined
-          "
-        >
-          <UserNotFound />
+        <div id="nico">
+          <div
+            v-if="
+              this.$store.state.userID === null ||
+                this.$store.state.userID === undefined
+            "
+          >
+            <UserNotFound />
+          </div>
+          <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
+            <Quiz />
+          </div>
+          <div
+            v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'"
+          >
+            <StandBy />
+          </div>
+          <div v-else>
+            <StatusNotFound />
+          </div>
+          <v-dialog v-model="dialog" max-width="90%">
+            <Info />
+          </v-dialog>
         </div>
-        <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
-          <Quiz />
-        </div>
-        <div
-          v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'"
-        >
-          <StandBy />
-        </div>
-        <div v-else>
-          <StatusNotFound />
-        </div>
-        <v-dialog v-model="dialog" max-width="90%">
-          <Info />
-        </v-dialog>
       </div>
     </v-app>
   </body>
@@ -75,6 +77,17 @@ export default {
   created: function() {
     this.$store.dispatch("initUserID");
     this.$store.dispatch("updateState");
+    //created のレンダリングが終わったあとに実行する必要があるので
+    setTimeout(this.nico, 1000);
+  },
+  methods: {
+    nico: function() {
+      var comment = document.createTextNode("hello");
+      var nico = document.getElementById("nico");
+      var h1Node = document.createElement("h1");
+      h1Node.appendChild(comment);
+      nico.appendChild(h1Node);
+    }
   }
 };
 </script>
