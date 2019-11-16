@@ -19,7 +19,7 @@ export default class commentStream {
     node.textContent = val;
     // node.appendChild(comment);
     this.commentView.appendChild(node);
-    console.log("this.commentView:", this.commentView);
+    // console.log("this.commentView:", this.commentView);
   }
   removeComments() {}
   getRandom(min, max) {

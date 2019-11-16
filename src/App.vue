@@ -12,7 +12,10 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text icon color="gray">
-        <i class="fas fa-info-circle fa-2x" @click.stop="dialog = true"></i>
+        <i class="fas fa-comment-dots fa-2x" @click.stop="messageDialog = true"></i>
+      </v-btn>
+      <v-btn text icon color="gray">
+        <i class="fas fa-info-circle fa-2x" @click.stop="infoDialog = true"></i>
       </v-btn>
     </v-toolbar>
     <div class="bg">
@@ -34,8 +37,11 @@
       <div v-else>
         <StatusNotFound />
       </div>
-      <v-dialog v-model="dialog" max-width="90%">
+      <v-dialog v-model="infoDialog" max-width="90%">
         <Info />
+      </v-dialog>
+      <v-dialog v-model="messageDialog" max-width="90%">
+        <Message />
       </v-dialog>
     </div>
   </v-app>
@@ -50,6 +56,7 @@ import Info from "../private/Info";
 import UserNotFound from "@/components/UserNotFound";
 import CommentStream from "./plugins/commentStream";
 import firebase from "firebase";
+import Message from "./components/Message";
 export default {
   name: "App",
   metaInfo: {
@@ -58,6 +65,7 @@ export default {
     content: "width=device-width,initial-scale=1"
   },
   components: {
+    Message,
     Quiz,
     Info,
     StatusNotFound,
@@ -66,27 +74,37 @@ export default {
   },
   data: () => {
     return {
-      dialog: false
+      infoDialog: false,
+      messageDialog: false,
+      messageFlag: false
     };
   },
   computed: {},
   created: function() {
     this.$store.dispatch("initUserID");
     this.$store.dispatch("updateState");
-    //created のレンダリングが終わったあとに実行する必要があるので
   },
   mounted() {
+    var that = this;
+    setTimeout(function() {
+      that.messageFlag = true;
+      // console.log("that.messageFlag:", that.messageFlag);
+    }, 2000);
     this.comment();
   },
   methods: {
     comment: function() {
+      var that = this;
       var cms = new CommentStream(100, "commentview", "cms");
       firebase
         .database()
         .ref("comment")
-        .on("child_changed", function(obj) {
-          console.log("obj.val():", obj.val());
-          cms.send(obj.val());
+        .on("child_added", function(obj) {
+          // console.log("obj.val():", obj.val());
+          // Firebaseの最初の全データ読み出しを防ぐため
+          if (that.messageFlag === true) {
+            cms.send(obj.val());
+          }
         });
     }
   }
