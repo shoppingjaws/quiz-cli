@@ -2,26 +2,100 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="CSS/index.css">
+	<style>
+		.bg {
+			width: 100%;
+			height: 100vh;
+			background-color: #db0031;
+			background-image: repeating-linear-gradient(-45deg,
+					#e43751,
+					#e43751 7.5px,
+					transparent 0,
+					transparent 15px);
+		}
+
+		.btn-square {
+			display: inline-block;
+			padding: 0.5em 1em;
+			text-decoration: none;
+			background: #668ad8;
+			/*ボタン色*/
+			color: #FFF;
+			border-bottom: solid 4px #627295;
+			border-radius: 3px;
+		}
+
+		.btn-square:active {
+			/*ボタンを押したとき*/
+			-webkit-transform: translateY(4px);
+			transform: translateY(4px);
+			/*下に動く*/
+			border-bottom: none;
+			/*線を消す*/
+		}
+
+		.btn-sticky {
+			display: inline-block;
+			padding: 0.5em 1em;
+			text-decoration: none;
+			background: #f7f7f7;
+			border-left: solid 6px #ff7c5c;
+			/*左線*/
+			color: #ff7c5c;
+			/*文字色*/
+			font-weight: bold;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+		}
+
+		h1 {
+			padding: 0.4em 0.5em;
+			/*文字の上下 左右の余白*/
+			color: #494949;
+			/*文字色*/
+			background: #f4f4f4;
+			/*背景色*/
+			border-left: solid 5px #7db4e6;
+			/*左線*/
+			border-bottom: solid 3px #d7d7d7;
+			/*下線*/
+		}
+
+		.sub {
+			padding: 1px 1px;
+			background: #f4f4f4;
+		}
+	</style>
 </head>
 
-<body>
-	<!-- フォーム送信時にcheckText関数を実行する -->
-	<form name="form">
-		お名前<br>
-		<input name="name" type="text" /><br>
-		好きなもの<br>
-		<input name="option" type="text" />
-		<!-- onclick属性を付与してcheckText関数を実行する -->
-		<input type="submit" value="参加" onclick="openURL()" />
-	</form>
+<body class="bg">
 
-	<script>
-		function openURL() {
-			//入力ボックスの内容を表示する
-			document.location.href = "http://www.ipentec.com/";
-		}
-	</script>
+	<body>
+		<center>
+			<h1>ようこそ 忘年会へ！！</h1>
+			<div class="sub">お名前と好きなものを入力してください｡あなたのユーザIDになります｡</div>
+			<br>
+			<!-- フォーム送信時にcheckText関数を実行する -->
+			<div class="btn-sticky">
+				<input id="name" type="text" placeholder="お名前" /><br></div>
+			<br><br>
+			<div class="btn-sticky"><input id="option" type="text" placeholder="好きなもの" /></div><br><br>
+			<!-- onclick属性を付与してcheckText関数を実行する -->
+			<div class="btn-square">
+				<input type="button" value="参加" onclick="openURL()" /></div>
+			<script>
+				function openURL() {
+					//入力ボックスの内容を表示する
+					var name = document.getElementById("name").value;
+					var option = document.getElementById("option").value;
+					if (option === '' || name === '') {
+						document.location.href = "https://d-quiz2019.firebaseapp.com"
+					} else {
+						document.location.href = "https://d-quiz2019.firebaseapp.com/?userID=" + option + "好きな" + name;
+					}
+				}
+			</script>
+		</center>
+	</body>
 </body>
 
 </html>
