@@ -7,7 +7,7 @@
         <b>
           {{ this.$store.state.quizValue["title"] }}
           <br />
-          <small>あなたの名前は{{ this.$store.state.userID }}です</small>
+          <small>{{ this.$store.state.userID }}</small>
         </b>
       </v-toolbar-title>
       <v-spacer></v-spacer>
