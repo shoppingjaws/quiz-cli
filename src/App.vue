@@ -1,51 +1,65 @@
 <template>
-<body>
-  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" />
-  <v-app>
-    <v-toolbar>
-      <v-toolbar-title>
-        <b>
-          {{ this.$store.state.quizValue["title"] }}
-          <br />
-          <small>{{ this.$store.state.userID }}</small>
-        </b>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn text icon color="gray">
-        <i class="fas fa-comment-dots fa-2x" @click.stop="messageDialog = true"></i>
-      </v-btn>
-      <v-btn text icon color="gray">
-        <i class="fas fa-info-circle fa-2x" @click.stop="infoDialog = true"></i>
-      </v-btn>
-    </v-toolbar>
-    <div class="bg">
-      <div id="commentview"></div>
-      <div
-        v-if="
+  <body>
+    <link
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      rel="stylesheet"
+    />
+    <v-app>
+      <div class="toolbar">
+        <v-toolbar>
+          <v-toolbar-title>
+            <b>
+              {{ this.$store.state.quizValue["title"] }}
+              <br />
+              <small>{{ this.$store.state.userID }}</small>
+            </b>
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          得点：{{ this.$store.state.userPoint }}pt
+          <v-btn text icon color="gray">
+            <i
+              class="fas fa-comment-dots fa-2x"
+              @click.stop="messageDialog = true"
+            ></i>
+          </v-btn>
+          <v-btn text icon color="gray">
+            <i
+              class="fas fa-info-circle fa-2x"
+              @click.stop="infoDialog = true"
+            ></i>
+          </v-btn>
+        </v-toolbar>
+      </div>
+      <div class="bg">
+        <div id="commentview"></div>
+        <div
+          v-if="
             this.$store.state.userID === null ||
               this.$store.state.userID === undefined
           "
-      >
-        <UserNotFound />
+        >
+          <UserNotFound />
+        </div>
+        <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
+          <Quiz />
+        </div>
+        <div
+          v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'"
+        >
+          <StandBy />
+        </div>
+        <div v-else>
+          <StatusNotFound />
+        </div>
+        <v-dialog v-model="infoDialog" max-width="90%">
+          <Info />
+        </v-dialog>
+        <v-dialog v-model="messageDialog" max-width="90%">
+          <Message />
+        </v-dialog>
       </div>
-      <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'quiz'">
-        <Quiz />
-      </div>
-      <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'standby'">
-        <StandBy />
-      </div>
-      <div v-else>
-        <StatusNotFound />
-      </div>
-      <v-dialog v-model="infoDialog" max-width="90%">
-        <Info />
-      </v-dialog>
-      <v-dialog v-model="messageDialog" max-width="90%">
-        <Message />
-      </v-dialog>
-    </div>
-  </v-app>
-</body>
+    </v-app>
+  </body>
 </template>
 
 <script>
@@ -83,6 +97,7 @@ export default {
   created: function() {
     this.$store.dispatch("initUserID");
     this.$store.dispatch("updateState");
+    this.$store.dispatch("updateUserPoint");
   },
   mounted() {
     var that = this;
@@ -121,6 +136,10 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
+}
+
+.toolbar {
+  z-index: 1;
 }
 
 .bg {

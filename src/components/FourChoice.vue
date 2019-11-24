@@ -26,10 +26,16 @@
         </v-btn>
       </div>
     </v-col>
-    <v-snackbar v-model="snackbar" :multi-line="true">
-      {{ text }}
-      <v-btn color="red" :timeout="10" text @click="snackbar = false">Close</v-btn>
-    </v-snackbar>
+
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">{{dialogTitle}}</v-card-title>
+        <v-card-text>{{dialogText}}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </center>
 </template>
 
@@ -39,19 +45,25 @@ export default {
   name: "FourChoice",
   data: () => {
     return {
-      snackbar: false,
-      text: "投票が完了しました"
+      dialogTitle: "投票が完了しました",
+      dialogText: "再投票可能になるまで10秒ほどお待ち下さい",
+      dialog: false
     };
   },
   created: function() {},
   methods: {
     vote: function(ans) {
+      var that = this;
       var update = {};
-      update[this.$store.state.quizValue["quizID"]] = ans;
+      update[this.$store.state.userID] = ans;
       firebase
         .database()
-        .ref("vote/" + this.$store.state.userID)
+        .ref("vote/" + this.$store.state.quizValue["quizID"] + "/")
         .update(update);
+      this.dialog = true;
+      setTimeout(function() {
+        that.dialog = false;
+      }, 10000);
     }
   }
 };

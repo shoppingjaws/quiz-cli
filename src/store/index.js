@@ -7,7 +7,8 @@ const store = new Vuex.Store({
   strict: true,
   state: {
     quizValue: [],
-    userID: ""
+    userID: "",
+    userPoint: 0
   },
   // state の更新
   mutations: {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
     setUserID: function(state, value) {
       state.userID = value;
       //console.log("setUserID", state.userID);
+    },
+    setUserPoint: function(state, value) {
+      state.userPoint = value;
     }
   },
   // state から別の値を計算
@@ -35,6 +39,20 @@ const store = new Vuex.Store({
           .on("value", function(obj) {
             //console.log(obj.val());
             commit("setState", obj.val());
+            resolve();
+          })
+      );
+    },
+    updateUserPoint({ commit }) {
+      var that = this;
+      return new Promise(resolve =>
+        firebase
+          .database()
+          .ref("vote/point/" + that.state.userID)
+          .on("value", function(obj) {
+            // console.log(obj.val());
+            // console.log(that.state.userID);
+            commit("setUserPoint", obj.val());
             resolve();
           })
       );
