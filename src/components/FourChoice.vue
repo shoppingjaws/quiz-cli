@@ -3,34 +3,42 @@
     <v-col class="text-center" cols="12" sm="4">
       <div class="my-2">
         <v-btn large color="error" width="150pt" @click="vote(1)">
-          {{ this.$store.state.quizValue['quizChoice1'] }}
-          <div id="choice">:{{this.$store.state.quizValue['quizChoice1Odds']}}点</div>
+          {{ this.$store.state.quizValue["quizChoice1"] }}
+          <div id="choice">
+            :{{ this.$store.state.quizValue["quizChoice1Odds"] }}点
+          </div>
         </v-btn>
       </div>
       <div class="my-2">
         <v-btn large color="primary" width="150pt" @click="vote(2)">
-          {{ this.$store.state.quizValue['quizChoice2'] }}
-          <div id="choice">:{{this.$store.state.quizValue['quizChoice2Odds']}}点</div>
+          {{ this.$store.state.quizValue["quizChoice2"] }}
+          <div id="choice">
+            :{{ this.$store.state.quizValue["quizChoice2Odds"] }}点
+          </div>
         </v-btn>
       </div>
       <div class="my-2">
         <v-btn large color="success" width="150pt" @click="vote(3)">
-          {{ this.$store.state.quizValue['quizChoice3'] }}
-          <div id="choice">:{{this.$store.state.quizValue['quizChoice3Odds']}}点</div>
+          {{ this.$store.state.quizValue["quizChoice3"] }}
+          <div id="choice">
+            :{{ this.$store.state.quizValue["quizChoice3Odds"] }}点
+          </div>
         </v-btn>
       </div>
       <div class="my-2">
         <v-btn large color="warning" width="150pt" @click="vote(4)">
-          {{ this.$store.state.quizValue['quizChoice4'] }}
-          <div id="choice">:{{this.$store.state.quizValue['quizChoice4Odds']}}点</div>
+          {{ this.$store.state.quizValue["quizChoice4"] }}
+          <div id="choice">
+            :{{ this.$store.state.quizValue["quizChoice4Odds"] }}点
+          </div>
         </v-btn>
       </div>
     </v-col>
 
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{dialogTitle}}</v-card-title>
-        <v-card-text>{{dialogText}}</v-card-text>
+        <v-card-title class="headline">{{ dialogTitle }}</v-card-title>
+        <v-card-text>{{ dialogText }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
         </v-card-actions>
@@ -54,16 +62,26 @@ export default {
   methods: {
     vote: function(ans) {
       var that = this;
-      var update = {};
-      update[this.$store.state.userID] = ans;
+      var updateVote = {};
+      var updateUser = {};
+      updateVote[this.$store.state.userID] = ans;
+      updateUser[this.$store.state.quizValue["quizID"]] = ans;
       firebase
         .database()
         .ref("vote/" + this.$store.state.quizValue["quizID"] + "/")
-        .update(update);
-      this.dialog = true;
-      setTimeout(function() {
-        that.dialog = false;
-      }, 10000);
+        .update(updateVote)
+        .then(() => {
+          firebase
+            .database()
+            .ref("user/" + this.$store.state.userID + "/")
+            .update(updateUser);
+        })
+        .then(() => {
+          this.dialog = true;
+          setTimeout(function() {
+            that.dialog = false;
+          }, 10000);
+        });
     }
   }
 };

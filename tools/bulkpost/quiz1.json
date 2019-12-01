@@ -1,0 +1,19 @@
+{
+	"question": {
+		"current": {
+			"quizChoice1": "hoge",
+			"quizChoice1Odds": 2,
+			"quizChoice2": "さきいか",
+			"quizChoice2Odds": 2,
+			"quizChoice3": "めんたいこ",
+			"quizChoice3Odds": 3,
+			"quizChoice4": "いくら",
+			"quizChoice4Odds": 2,
+			"quizID": 3,
+			"quizMode": "FourChoice",
+			"quizStatus": "quiz",
+			"quizTitle": "好き物は",
+			"title": "チキチキ忘年会!"
+		}
+	}
+}
