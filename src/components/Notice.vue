@@ -4,22 +4,22 @@
       <br />
       <br />
       <div>
-        <Content />
-        <Answer />
+        <v-card class="mx-auto" max-width="90%" outlined>
+          <v-card-text>
+            <p class="display-1 text--primary">
+              {{ this.$store.state.quizValue["quizTitle"] }}
+            </p>
+          </v-card-text>
+        </v-card>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Content from "./Content";
-import Answer from "./Answer.vue";
 export default {
   name: "Quiz",
-  components: {
-    Content,
-    Answer
-  },
+  components: {},
   data: () => {
     return {
       showModalInfo: false,

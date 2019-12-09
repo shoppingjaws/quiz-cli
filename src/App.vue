@@ -48,6 +48,9 @@
         >
           <StandBy />
         </div>
+        <div v-else-if="this.$store.state.quizValue['quizStatus'] === 'notice'">
+          <Notice />
+        </div>
         <div v-else>
           <StatusNotFound />
         </div>
@@ -71,6 +74,7 @@ import UserNotFound from "@/components/UserNotFound";
 import CommentStream from "./plugins/commentStream";
 import firebase from "firebase";
 import Message from "./components/Message";
+import Notice from "./components/Notice";
 export default {
   name: "App",
   metaInfo: {
@@ -84,7 +88,8 @@ export default {
     Info,
     StatusNotFound,
     StandBy,
-    UserNotFound
+    UserNotFound,
+    Notice
   },
   data: () => {
     return {
@@ -145,11 +150,11 @@ body {
 .bg {
   width: 100%;
   height: 100vh;
-  background-color: #db0031;
+  background-color: #4e547d;
   background-image: repeating-linear-gradient(
     -45deg,
-    #e43751,
-    #e43751 7.5px,
+    #3e91d0,
+    #3e91d0 7.5px,
     transparent 0,
     transparent 15px
   );
