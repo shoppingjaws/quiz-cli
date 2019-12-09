@@ -8,3 +8,10 @@ console.log("now loading", process.argv[2]);
 const file = require(process.argv[2]);
 console.log(file);
 
+firebase
+  .database()
+  .ref()
+  .update(file)
+  .then(() => {
+    process.exit(1);
+  });

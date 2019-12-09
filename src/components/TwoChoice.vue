@@ -6,12 +6,12 @@
         <v-container>
           <v-layout>
             <v-flex>
-              <v-btn large color="error" width="150pt" @click="vote(1)">
+              <v-btn large color="error" width="100pt" @click="vote(1)">
                 {{ this.$store.state.quizValue["quizChoice1"] }}
               </v-btn>
             </v-flex>
             <v-flex>
-              <v-btn large color="primary" width="150pt" @click="vote(2)">
+              <v-btn large color="primary" width="100pt" @click="vote(2)">
                 {{ this.$store.state.quizValue["quizChoice2"] }}
               </v-btn>
             </v-flex>

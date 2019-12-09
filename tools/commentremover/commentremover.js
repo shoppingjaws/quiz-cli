@@ -9,4 +9,4 @@ setInterval(() => {
     .database()
     .ref("comment")
     .set("");
-}, 60000);
+}, 10000);

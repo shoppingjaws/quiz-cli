@@ -3,10 +3,10 @@
 		"current": {
 			"quizChoice1": "先輩チーム",
 			"quizChoice2": "新人チーム",
-			"quizID": 1,
+			"quizID": 2,
 			"quizMode": "TwoChoice",
 			"quizStatus": "quiz",
-			"quizTitle": "二人羽織対決！どっちがはやく食べ切れる!?",
+			"quizTitle": "風船膨らまし対決！どっちが早く割れる!?",
 			"title": "DENSO忘年会!"
 		}
 	}
